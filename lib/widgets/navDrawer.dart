@@ -6,7 +6,7 @@ class NavDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
             child: Container(
-              color: MyColors.bg,
+              color: MyColors.text1,
               child: ListView(
                 children: <Widget>[
                   DrawerHeader(
@@ -18,19 +18,19 @@ class NavDrawer extends StatelessWidget {
                         fontFamily: 'OpenSans',
                         fontSize: 25.0,
                         fontWeight: FontWeight.w300,
-                        color: MyColors.text1),
+                        color: MyColors.color1),
                   ),
                   SizedBox(height: 20.0),
                   Card(
                     color: MyColors.text1,
                     child: ListTile(
                       title: Text("Mumbai",
-                          style: TextStyle(color: MyColors.text2)),
+                          style: TextStyle(fontSize: 20.0, color: MyColors.color1)),
                       trailing:
-                          Icon(Icons.arrow_forward, color: MyColors.text2),
+                          Icon(Icons.arrow_forward, color: MyColors.color1),
                       onTap: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, '/loading',
+                        Navigator.pushNamed(context, '/location',
                             arguments: {'location': 'Mumbai'});
                       },
                     ),

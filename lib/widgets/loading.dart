@@ -14,8 +14,8 @@ class _LoadingState extends State<Loading> {
     try {
       Forecast forecast = new Forecast();
       await forecast.getForecast(location);
-      Navigator.pushReplacementNamed(context, '/location',
-          arguments: {'location': location, 'days': forecast.days});
+      //Navigator.pushReplacementNamed(context, '/location',
+        //  arguments: {'location': location, 'days': forecast.days});
     } catch (e) {
       print('Error Occured: $e');
     }

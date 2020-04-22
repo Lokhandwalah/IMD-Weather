@@ -4,6 +4,7 @@ import 'widgets/loading.dart';
 import 'LocationDetails.dart';
 import 'values/MyColors.dart';
 import 'Home.dart';
+import 'Region.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => Home(),
         '/loading': (context) => Loading(),
         '/location': (context) => LocationDetails(),
+        '/region': (context) => Region(),
       },
     );
   }

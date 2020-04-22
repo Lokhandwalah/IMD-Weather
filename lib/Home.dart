@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
               title:
                   Text("IMD Weather", style: TextStyle(color: index==0 ? MyColors.text1 : MyColors.color1)),
               centerTitle: true,
-              backgroundColor: Color(0x00EBF5FB),
+              backgroundColor: Color(0xffFBFCFC).withOpacity(0.25),
               iconTheme: new IconThemeData(color: index==0 ? MyColors.text1 : MyColors.color1),
               actions: <Widget>[
                 Padding(

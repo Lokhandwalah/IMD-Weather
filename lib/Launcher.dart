@@ -19,6 +19,7 @@ class _LauncherState extends State<Launcher> with TickerProviderStateMixin {
 
     animation.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
+        await Future.delayed(Duration(seconds: 1));
         Navigator.pushReplacementNamed(context, '/home');
       }
     });
