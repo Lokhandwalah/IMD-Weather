@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/ApiCall.dart';
-import '../MyColors.dart';
+import '../values/MyColors.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
@@ -11,15 +11,12 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   String location;
   void setupForecast(location) async {
-    try{
+    try {
       Forecast forecast = new Forecast();
-    await forecast.getForecast(location);
-    Navigator.pushReplacementNamed(context, '/location', arguments: {
-     'location': location,
-     'days': forecast.days
-    });
-    }
-    catch (e) {
+      await forecast.getForecast(location);
+      Navigator.pushReplacementNamed(context, '/location',
+          arguments: {'location': location, 'days': forecast.days});
+    } catch (e) {
       print('Error Occured: $e');
     }
   }

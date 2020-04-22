@@ -7,6 +7,6 @@ class Forecast {
     String url = 'https://imd-weather.herokuapp.com/api/v1/' + location;
     Response response = await get(url);
     Map result = jsonDecode(response.body);
-    days = result['data'][0]['forecast'];
+    days = result['data'][1]['forecast'];
   }
 }

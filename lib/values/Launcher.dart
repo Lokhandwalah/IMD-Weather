@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'values/MyColors.dart';
+import '../values/MyColors.dart';
 
 class Launcher extends StatefulWidget {
   @override
@@ -14,10 +14,11 @@ class _LauncherState extends State<Launcher> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 1500), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
     animation.addStatusListener((status) async {
+      await Future.delayed(Duration(seconds: 1));
       if (status == AnimationStatus.completed) {
         Navigator.pushReplacementNamed(context, '/home');
       }

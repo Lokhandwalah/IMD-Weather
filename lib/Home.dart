@@ -1,49 +1,83 @@
 import 'package:flutter/material.dart';
-import 'MyColors.dart';
+import 'package:imd_weather/widgets/navDrawer.dart';
+import 'package:intl/intl.dart';
+import 'values/MyColors.dart';
+import 'values/MyTextStyles.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _scafflodKey = new GlobalKey<ScaffoldState>();
+  void _showSnackbar(String s) {
+    _scafflodKey.currentState.showSnackBar(SnackBar(
+      content: Text(s),
+      duration: Duration(seconds: 1),
+    ));
+  }
+
+  static List<String> images = [
+    'assets/images/clear_sky.jpeg',
+    'assets/images/evening_sky.jpeg',
+    'assets/images/night_sky.jpeg'
+  ];
+  String bg = images[0];
+  var index = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: MyColors.bg,
-        appBar: AppBar(
-          title: Text("IMD Weather", style: TextStyle(color: MyColors.text2)),
-          centerTitle: true,
-          backgroundColor: MyColors.text1,
-        ),
-        drawer: Drawer(
-          child: Container(
-            color: MyColors.bg,
-            child: ListView(
-              children: <Widget>[
-                DrawerHeader(child: Image.asset('assets/images/imd_logo.png')),
-                Text(
-                  'Indian Meteorological department',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w300,
-                      color: MyColors.text1),
+    return Stack(fit: StackFit.expand, children: <Widget>[
+      Image(
+        image: AssetImage(bg),
+        fit: BoxFit.cover,
+      ),
+      Scaffold(
+          key: _scafflodKey,
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+              title:
+                  Text("IMD Weather", style: TextStyle(color: index==0 ? MyColors.text1 : MyColors.color1)),
+              centerTitle: true,
+              backgroundColor: Color(0x00EBF5FB),
+              iconTheme: new IconThemeData(color: index==0 ? MyColors.text1 : MyColors.color1),
+              actions: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        _showSnackbar('Coming Soon');
+                      },
+                      child: Icon(
+                        Icons.add,
+                      ),
+                    )),
+              ]),
+          drawer: NavDrawer(),
+          body: RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(Duration(seconds: 1));
+                setState(() {
+                  if (index < images.length - 1)
+                    index++;
+                  else
+                    index = 0;
+                  bg = images[index];
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView(
+                  children: <Widget>[
+                    Text('Mumbai', style: index==0 ? MyTextStyles.title : MyTextStyles.titlewhite),
+                    SizedBox(height: 20.0),
+                    Text(DateFormat('h:mm a E, d MMM y').format(DateTime.now()),
+                        style: index==0 ? MyTextStyles.bodyText : MyTextStyles.bodyTextwhite),
+                    SizedBox(height: 20.0),
+                  ],
                 ),
-                SizedBox(height: 20.0),
-                Card(
-                  color: MyColors.text1,
-                  child: ListTile(
-                    title:
-                        Text("Mumbai", style: TextStyle(color: MyColors.text2)),
-                    trailing: Icon(Icons.arrow_forward, color: MyColors.text2),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, '/loading',
-                          arguments: {'location': 'Mumbai'});
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        body: Center(child: Text('Home Screen')));
+              )))
+    ]);
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'Launcher.dart';
 import 'widgets/loading.dart';
 import 'LocationDetails.dart';
-import 'MyColors.dart';
+import 'values/MyColors.dart';
 import 'Home.dart';
 
 void main() => runApp(MyApp());
