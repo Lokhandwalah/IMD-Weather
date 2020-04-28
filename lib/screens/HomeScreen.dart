@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'values/MyColors.dart';
-import 'values/MyTextStyles.dart';
+import 'package:imd_weather/values/MyColors.dart';
+import 'package:imd_weather/values/MyTextStyles.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -921,7 +921,7 @@ Widget Dates(int hr) {
   hr = 10;
   if (hr >= 6 && hr < 18)
     return MorningPage();
-  else if (hr == 5 || (hr>=18 && hr <= 19))
+  else if (hr == 5 || (hr >= 18 && hr <= 19))
     return EveningPage();
   else
     return NightPage();

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:imd_weather/HomeScreen.dart';
-import 'HomePage.dart';
-import 'Launcher.dart';
-import 'Station.dart';
-import 'LocationDetails.dart';
+import 'screens//HomeScreen.dart';
+import 'screens/HomePage.dart';
+import 'screens/Launcher.dart';
+import 'screens/Station.dart';
+import 'screens/LocationDetails.dart';
+import 'screens/Warnings.dart';
 import 'values/MyColors.dart';
-import 'Region.dart';
+import 'screens/Region.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/location': (context) => LocationDetails(),
         '/region': (context) => Region(),
         '/station': (context) => Station(),
+        '/warnings': (context) => Warnings(),
       },
     );
   }

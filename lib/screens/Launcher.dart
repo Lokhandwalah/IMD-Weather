@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'values/MyColors.dart';
 
 class Launcher extends StatefulWidget {
   @override

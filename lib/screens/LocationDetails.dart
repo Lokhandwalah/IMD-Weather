@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'services/ApiCall.dart';
-import 'widgets/Animation.dart';
+import '../services/ApiCall.dart';
+import '../widgets/Animation.dart';
 import 'package:connectivity/connectivity.dart';
-import 'values/MyTextStyles.dart';
-import 'values/MyColors.dart';
+import '../values/MyTextStyles.dart';
+import '../values/MyColors.dart';
 
 class LocationDetails extends StatefulWidget {
   @override

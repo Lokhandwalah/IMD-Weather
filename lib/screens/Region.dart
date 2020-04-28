@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imd_weather/values/MyColors.dart';
 import 'package:imd_weather/values/MyTextStyles.dart';
-import 'widgets/forecast_table.dart';
+import '../widgets/forecast_table.dart';
 
 class Region extends StatelessWidget {
   @override

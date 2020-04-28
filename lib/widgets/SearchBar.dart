@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:imd_weather/HomeScreen.dart';
 import '../services/ApiCall.dart';
 import '../values/MyTextStyles.dart';
-import '../values/MyBackgrounds.dart';
 
 class SearchBar extends SearchDelegate<String> {
   static List cities = [];

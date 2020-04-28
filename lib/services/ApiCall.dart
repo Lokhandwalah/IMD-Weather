@@ -56,3 +56,19 @@ class CityData {
     }
   }
 }
+
+class PDFData {
+  String regionURL;
+  String districtURL;
+  Future<void> getURLs() async {
+    print("getting Urls");
+    String url = 'https://imd-weather.herokuapp.com/api/v1/';
+    for (var i = 0; i < 2; i++) {
+      url = i == 0 ? url+'regional-forecast' : url.replaceAll('regional','district');
+      Response response = await get(url);
+      Map result = jsonDecode(response.body);
+      i == 0 ? regionURL = result['data'] : districtURL = result['data'];
+    }
+    //print(regionURL + '\n' + districtURL);
+  }
+}

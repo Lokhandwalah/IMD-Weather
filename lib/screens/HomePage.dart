@@ -1,14 +1,14 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'services/ApiCall.dart';
+import '../services/ApiCall.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'values/MyBackgrounds.dart';
-import 'values/MyColors.dart';
-import 'values/MyTextStyles.dart';
-import 'widgets/Animation.dart';
-import 'widgets/navDrawer.dart';
-import 'widgets/SearchBar.dart';
+import '../values/MyBackgrounds.dart';
+import '../values/MyColors.dart';
+import '../values/MyTextStyles.dart';
+import '../widgets/Animation.dart';
+import '../widgets/navDrawer.dart';
+import '../widgets/SearchBar.dart';
 import 'dart:math';
 
 class HomePage extends StatefulWidget {
@@ -408,7 +408,6 @@ class _HomePageState extends State<HomePage> {
   // }
 
   int backgournd(int hr) {
-    hr = 10;
     if (hr >= 6 && hr < 18)
       return 0; //Morning
     else if (hr == 5 || (hr >= 18 && hr <= 19))

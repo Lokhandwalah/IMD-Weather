@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'services/ApiCall.dart';
-import 'values/MyColors.dart';
-import 'values/MyTextStyles.dart';
-import 'widgets/forecast_table.dart';
+import '../services/ApiCall.dart';
+import '../values/MyColors.dart';
+import '../values/MyTextStyles.dart';
+import '../widgets/forecast_table.dart';
 
 class Station extends StatefulWidget {
   @override
