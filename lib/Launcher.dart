@@ -27,9 +27,15 @@ class _LauncherState extends State<Launcher> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.bg,
+      backgroundColor: Colors.grey[800],
       body: Center(
         child: FadeTransition(
           opacity: animation,
@@ -44,7 +50,7 @@ class _LauncherState extends State<Launcher> with TickerProviderStateMixin {
               Expanded(
                   child: Text('Indian Meteorological Department',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: TextStyle( color: Colors.white,
                           fontSize: 25.0, fontWeight: FontWeight.w500)))
             ],
           ),

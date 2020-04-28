@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'services/ApiCall.dart';
-import 'widgets/forecast_table.dart';
-import 'package:intl/intl.dart';
+import 'widgets/Animation.dart';
+import 'package:connectivity/connectivity.dart';
 import 'values/MyTextStyles.dart';
 import 'values/MyColors.dart';
 
@@ -13,7 +14,18 @@ class LocationDetails extends StatefulWidget {
 
 class _LocationDetailsState extends State<LocationDetails> {
   bool flag = false;
-  Forecast forecast = new Forecast();
+  bool internet = true;
+  ForecastMain forecast = new ForecastMain();
+
+  _checkInternet() async {
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      setState(() {
+        internet = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map data = ModalRoute.of(context).settings.arguments;
@@ -23,33 +35,39 @@ class _LocationDetailsState extends State<LocationDetails> {
       return ListView.builder(
           itemCount: forecast.regions.length,
           itemBuilder: (context, index) {
-            return Card(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/region', arguments: {
-                    'days': forecast.forecasts[index],
-                    'region': forecast.regions[index]
-                  });
-                },
-                child: ListTile(
-                    title: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25.0),
-                  child: Text(
-                    '${forecast.regions[index]}',
-                    style: MyTextStyles.bodyTextwhite,
-                  ),
-                )),
+            return FadeAnimation(
+              delay: 1.0,
+              child: Card(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/region', arguments: {
+                      'days': forecast.forecasts[index],
+                      'region': forecast.regions[index]
+                    });
+                  },
+                  child: ListTile(
+                      title: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Text(
+                      '${forecast.regions[index]}',
+                      style: MyTextStyles.bodyTextwhite,
+                    ),
+                  )),
+                ),
+                color: Colors.blue[200 + (index * 100)],
               ),
-              color: Colors.blue[200 + (index * 100)],
             );
           });
     }
 
     void fetch() async {
-      await forecast.getForecast(location);
-      setState(() {
-        flag = true;
-      });
+      await _checkInternet();
+      if (internet) {
+        await forecast.getForecast(location);
+        setState(() {
+          flag = true;
+        });
+      }
     }
 
     Widget spinner() {
@@ -60,10 +78,15 @@ class _LocationDetailsState extends State<LocationDetails> {
       );
     }
 
+    Widget mainScreen() {
+      return flag ? grid() : spinner();
+    }
+
+    //_checkInternet();
     return Scaffold(
         body: Stack(fit: StackFit.expand, children: <Widget>[
       Image(
-        image: AssetImage('assets/images/clear_sky.jpeg'),
+        image: AssetImage('assets/images/morning/day-1.jpg'),
         fit: BoxFit.cover,
       ),
       Padding(
@@ -72,7 +95,17 @@ class _LocationDetailsState extends State<LocationDetails> {
       ),
       Padding(
           padding: const EdgeInsets.only(top: 120.0),
-          child: flag ? grid() : spinner())
+          child: internet
+              ? mainScreen()
+              : Center(
+                  child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Feather.wifi_off, size: 50.0),
+                    SizedBox(width: 10.0),
+                    Text("No Internet", style: MyTextStyles.bodyText),
+                  ],
+                )))
     ]));
   }
 }

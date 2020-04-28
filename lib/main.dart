@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:imd_weather/HomeScreen.dart';
+import 'HomePage.dart';
 import 'Launcher.dart';
-import 'widgets/loading.dart';
+import 'Station.dart';
 import 'LocationDetails.dart';
 import 'values/MyColors.dart';
-import 'Home.dart';
 import 'Region.dart';
 
 void main() => runApp(MyApp());
@@ -14,11 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "IMD Weather",
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
           fontFamily: 'Quicksand',
           textTheme: TextTheme(
               title: TextStyle(
                   fontFamily: 'QuickSand',
-                  fontSize: 45.0,
+                  fontSize: 20.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
               body2: TextStyle(
@@ -30,12 +32,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Launcher(),
-        '/home': (context) => Home(),
-        '/loading': (context) => Loading(),
+        '/home': (context) => HomePage(),
         '/location': (context) => LocationDetails(),
         '/region': (context) => Region(),
+        '/station': (context) => Station(),
       },
     );
   }
 }
-

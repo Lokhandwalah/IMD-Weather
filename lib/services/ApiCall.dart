@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 
-class Forecast {
+class ForecastMain {
   List data;
   List regions;
   List forecasts;
@@ -11,11 +11,48 @@ class Forecast {
     Response response = await get(url);
     Map result = jsonDecode(response.body);
     data = result['data'];
+    print(data);
     regions = List(data.length);
     forecasts = List(data.length);
     for (var i = 0; i < data.length; i++) {
       regions[i] = data[i]['location'].substring(7);
       forecasts[i] = data[i]['forecast'];
+    }
+  }
+}
+
+class Forecast {
+  Map data;
+  List forecasts;
+  Future<void> getForecast(id) async {
+    print('Fetching');
+    String url = 'https://imd-weather.herokuapp.com/api/v1/city?cityId=' + id;
+    Response response = await get(url);
+    Map result = jsonDecode(response.body);
+    data = result['data'];
+    forecasts = data['forecast'];
+    //print(forecasts);
+  }
+}
+
+class CityData {
+  List data;
+  Map<String, String> id;
+  List city;
+  List state;
+  Future<void> getIDs() async {
+    print('Fetching IDs');
+    String url = 'https://imd-weather.herokuapp.com/api/v1/mapping';
+    Response response = await get(url);
+    Map result = jsonDecode(response.body);
+    data = result['data'];
+    id = Map<String, String>();
+    city = List(data.length);
+    state = List(data.length);
+    for (var i = 0; i < data.length; i++) {
+      city[i] = data[i]['cityName'];
+      state[i] = data[i]['stateName'];
+      id[data[i]['cityName']] = data[i]['id'];
     }
   }
 }

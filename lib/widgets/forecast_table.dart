@@ -4,76 +4,83 @@ import 'package:intl/intl.dart';
 
 class ForecastTable extends StatelessWidget {
   final List days;
-  ForecastTable({this.days});
+  ForecastTable({@required this.days});
   @override
   Widget build(BuildContext context) {
     var i = -1;
     return Column(
       children: <Widget>[
         Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      flex: 2,
-                      child: Text('Date', style: MyTextStyles.bodyTextwhite)),
-                  Expanded(
-                      flex: 2,
-                      child: FittedBox(
-                          child: Text('MinTemp ',
-                              style: MyTextStyles.bodyTextwhite))),
-                  Expanded(
-                      flex: 2,
-                      child: FittedBox(
-                          child: Text(' MaxTemp',
-                              style: MyTextStyles.bodyTextwhite))),
-                  Expanded(
-                      flex: 3,
-                      child: Text(
-                        'Weather',
-                        style: MyTextStyles.bodyTextwhite,
-                        textAlign: TextAlign.end,
-                      )),
-                ],
-              ),
-            ),
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                  flex: 2,
+                  child: Text('Date', style: MyTextStyles.bodyTextwhite)),
+              Expanded(
+                  flex: 3,
+                  child: FittedBox(
+                      child: Text('Temperature',
+                          style: MyTextStyles.bodyTextwhite, textAlign: TextAlign.start))),
+              Expanded(
+                  flex: 4,
+                  child: Text(
+                    'Weather',
+                    style: MyTextStyles.bodyTextwhite,
+                    textAlign: TextAlign.center,
+                  )),
+            ],
+          ),
+        ),
         Column(
             children: days.map((index) {
           i++;
-          return Card(
-              color: Color(0x11b3c6e4),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                        DateFormat.E()
-                            .format(DateTime.now().add(Duration(days: i)))
-                            .substring(0, 3),
-                        style: MyTextStyles.bodyText2),
-                    SizedBox(width: 5.0),
-                    Expanded(
-                        flex: 2,
-                        child:
-                            Text(days[i]['date'], style: MyTextStyles.bodyText2)),
-                    Expanded(
-                        flex: 2,
-                        child: Text('${days[i]['minTemp']}°C',
-                            textAlign: TextAlign.center,
-                            style: MyTextStyles.bodyText2)),
-                    Expanded(
-                        flex: 2,
-                        child: Text('${days[i]['maxTemp']}°C',
-                            textAlign: TextAlign.center,
-                            style: MyTextStyles.bodyText2)),
-                    Expanded(
-                        flex: 3,
-                        child: Text(days[i]['weather'],
-                            textAlign: TextAlign.center,
-                            style: MyTextStyles.bodyText2)),
-                  ],
-                ),
-              ));
+          return LimitedBox(
+            maxHeight: 200.0,
+                      child: Card(
+                color: Colors.teal,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: <Widget>[
+                      // Text(
+                      //     DateFormat.E()
+                      //         .format(DateTime.now().add(Duration(days: i)))
+                      //         .substring(0, 3),
+                      //     style: MyTextStyles.bodyText2),
+                      // SizedBox(width: 5.0),
+                      Expanded(
+                          child: Text(days[i]['date'],
+                              style: MyTextStyles.bodyText2)),
+                      Expanded(
+                          flex: 2,
+                          child: FittedBox(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.arrow_upward),
+                                Text(' ${days[i]['maxTemp']}°C',
+                                    style: MyTextStyles.bodyText2),
+                                SizedBox(width: 5),
+                                Icon(Icons.arrow_downward),
+                                Text(' ${days[i]['minTemp']}°C',
+                                    style: MyTextStyles.bodyText2)
+                              ],
+                            ),
+                          )),
+                          SizedBox(width: 5.0),
+                      Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Text(days[i]['weather'],
+                                textAlign: TextAlign.center,
+                                style: MyTextStyles.bodyText2),
+                          )),
+                    ],
+                  ),
+                )),
+          );
         }).toList()),
       ],
     );
